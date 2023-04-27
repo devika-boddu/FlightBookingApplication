@@ -39,62 +39,57 @@
             <option value="4">4</option>
         </select>
     </div>
-   < % 
+   <!-- < % 
     List<String> mySessionVar = (String) session.getAttribute("getSeats"); 
-  %>
-    <c:out value = "{$sessionScope.getSeats}"></c:out>
+  %> -->
     
-    <form method="get" name="seatBookings" action="products.htm">
+    <!-- <c:out value = "${sessionScope.seats}"/> -->
+    <p>Get seats---</p>
+
+
+
+    <form method="post" name="seatBookings" action="products.htm">
         <div class="seat">
-            <input id ="inputId1" type="submit" value="S1" name="userSelectedOption"/>
+            <input class="seatId" id ="S1" type="submit" value="S1" name="userSelectedOption"/>
         </div>
     </form>
-    <form method="get" name="seatBookings" action="products.htm">
+    <form method="post" name="seatBookings" action="products.htm">
         <div class="seat">
-            <input id ="inputId2" type="submit" value="S2" name="userSelectedOption"/>
+            <input class="seatId" id ="S2" type="submit" value="S2" name="userSelectedOption"/>
         </div>
     </form>
-    <form method="get" name="seatBookings" action="products.htm">
+    <form method="post" name="seatBookings" action="products.htm">
         <div class="seat">
-            <input id ="inputId3" type="submit" value="S3" name="userSelectedOption"/>
+            <input class="seatId" id ="S3" type="submit" value="S3" name="userSelectedOption"/>
         </div>
     </form>
-    <form method="get" name="seatBookings" action="products.htm">
+    <form method="post" name="seatBookings" action="products.htm">
         <div class="seat">
-            <input id ="inputId4" type="submit" value="S4" name="userSelectedOption"/>
+            <input class="seatId" id ="S4" type="submit" value="S4" name="userSelectedOption"/>
         </div>
     </form>
-    <form method="get" name="seatBookings" action="products.htm">
+    <form method="post" name="seatBookings" action="products.htm">
         <div class="seat">
-            <input id ="inputId5" type="submit" value="S5" name="userSelectedOption"/>
+            <input class="seatId" id ="S5" type="submit" value="S5" name="userSelectedOption"/>
         </div>
     </form>
-    <form method="get" name="seatBookings" action="products.htm">
+    <form method="post" name="seatBookings" action="products.htm">
         <div class="seat">
-            <input id ="inputId6" type="submit" value="S6" name="userSelectedOption"/>
+            <input class="seatId" id ="S6" type="submit" value="S6" name="userSelectedOption"/>
         </div>
     </form>
+    <form method="post" name="checkout" action="payment">
+        <input type="submit" value="Checkout" name="Checkout"/>
+    </form>
+
     <script>
-        console.log("Hi");
-    
-        var inputs = document.getElementsByTagName("input");
-    
-        var inputValues = [];
-        for (var i = 0; i < inputs.length; i++) {
-        inputValues.push(inputs[i].value);
-      }
-        console.log(inputValues);
-
-        var input1 = document.getElementById("inputId1");
-        var input2 = document.getElementById("inputId2");
-        var input3 = document.getElementById("inputId3");
-        var input4 = document.getElementById("inputId4");
-        var input5 = document.getElementById("inputId5");
-        var input6 = document.getElementById("inputId6");
-        var mySessionVar[] = '<%= session.getAttribute("mySessionVar") %>'
-
-        
+        var seats = "${sessionScope.seats}"
+        console.log(seats);
+        seatIds = document.getElementsByClassName("seatId")
+        for(let i=0; i<seatIds.length;i++){
+           if(seats.includes(seatIds[i].id)){
+                seatIds[i].setAttribute("disabled","")}
+        }
     </script>
-    
 </body>
 </html>

@@ -11,6 +11,8 @@ import com.flights.project.Pojo.FlightPackages;
 
 
 
+
+
 @Component
 public class FlightPackagesDao extends DAO {
 	
@@ -126,5 +128,35 @@ public class FlightPackagesDao extends DAO {
 			}
 			return seatsList;
 		}
+	public List<FlightPackages> getAllSearchedFlights(String from, String to) throws CustomerException {
+		List<FlightPackages> searchedFlightPackages = null;
+		try {
+			String hql = "FROM FlightPackages WHERE source LIKE :from AND destination LIKE :to";
+			Query query = getSession().createQuery(hql, FlightPackages.class);
+			query.setParameter("from", "%" + from + "%");
+			query.setParameter("to", "%" + to + "%");
+			searchedFlightPackages = query.list();
+			
+			System.out.println("Searched Flights:" + searchedFlightPackages);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		return searchedFlightPackages;
+	}
+	public List<FlightPackages> getSortedFlights() throws CustomerException{
+		
+		List<FlightPackages> myEntities = null;
+		try {
+			myEntities = getSession().createQuery("FROM FlightPackages ORDER BY flightName ASC", FlightPackages.class).getResultList();
+			System.out.println(myEntities);
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+        return myEntities;
+    }
 
 }

@@ -102,7 +102,7 @@ public class LoginController {
 	            System.out.println(flight);
 	        }
 			
-			return "flightsDashboard";
+			return "dashboard1";
 		}
 	}
 

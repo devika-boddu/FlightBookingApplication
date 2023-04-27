@@ -85,24 +85,23 @@ public class CustomerDao extends DAO {
 	         throw new CustomerException("Exception while deleting Customer: " + e.getMessage());
 	     }
 	}
-	 public void updateSeatListCustomer(int customerId, List<String> seatsList) throws CustomerException {
-			
-			Customer customer = getCustomerByUserId(customerId);
-			if(customer!=null) {
-			try {
-				begin();
-				
-				customer.setSeats(seatsList);
-				getSession().merge(customer);
-				commit();
-				close();
-			}
-			catch (HibernateException e) {
-		         rollback();
-		         throw new CustomerException("Exception while deleting Customer: " + e.getMessage());
-		     }
-			}
-			
-		}
+//	 public void updateSeatListCustomer(int customerId, String seat) throws CustomerException {
+//			
+//			Customer customer = getCustomerByUserId(customerId);
+//			if(customer!=null) {
+//			try {
+//				begin();
+//				customer.setSeat(seat);
+//				getSession().merge(customer);
+//				commit();
+//				close();
+//			}
+//			catch (HibernateException e) {
+//		         rollback();
+//		         throw new CustomerException("Exception while deleting Customer: " + e.getMessage());
+//		     }
+//			}
+//			
+//		}
 
 }

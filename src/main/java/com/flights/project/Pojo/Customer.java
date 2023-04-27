@@ -28,19 +28,13 @@ public class Customer {
 	private String customerLastName;
 	private String customerEmail;
 	private String customerPassword;
-	private List<String> seats;
 	
-	
+
 	@OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL)
 	 private Set<CustomerFlightBookings> customerFlights = new  HashSet<>();
 	
 	
-	public List<String> getSeats() {
-		return seats;
-	}
-	public void setSeats(List<String> seats) {
-		this.seats = seats;
-	}
+	
 	
 	public Set<CustomerFlightBookings> getCustomerFlights() {
 		return customerFlights;
@@ -78,12 +72,13 @@ public class Customer {
 	public void setCustomerPassword(String customerPassword) {
 		this.customerPassword = customerPassword;
 	}
-	
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerFirstName=" + customerFirstName + ", customerLastName="
 				+ customerLastName + ", customerEmail=" + customerEmail + ", customerPassword=" + customerPassword
-				+ ", seats=" + seats + ", customerFlights=" + customerFlights + "]";
+				+ ", customerFlights=" + customerFlights + "]";
 	}
-
+	
+	
+	
 }
