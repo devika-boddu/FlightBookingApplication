@@ -2,6 +2,9 @@ package com.flights.project.Pojo;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@Component
 @Entity
 @Table
 public class FlightPackages {
@@ -26,7 +30,7 @@ public class FlightPackages {
 	private String flightImage;
 	private List<String> seats;
 	
-	@OneToMany(mappedBy = "fightPackages", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "flightPackages", cascade = CascadeType.ALL)
 	private Set<CustomerFlightBookings> customers = new HashSet<CustomerFlightBookings>();
 	
 	public Set<CustomerFlightBookings> getCustomers() {

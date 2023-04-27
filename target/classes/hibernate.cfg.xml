@@ -9,7 +9,7 @@
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/flightdb?createDatabaseIfNotExist=true</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">Vani@1972</property>
+        <property name="connection.password">admin@12345</property>
 
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">10</property>
@@ -27,6 +27,5 @@
         <mapping class="com.flights.project.Pojo.FlightAdmin"/>
         <mapping class="com.flights.project.Pojo.FlightPackages"/>
         <mapping class="com.flights.project.Pojo.CustomerFlightBookings"/>
-        <mapping class="com.flights.project.Pojo.CustomerFlights"/>
     </session-factory>
 </hibernate-configuration>

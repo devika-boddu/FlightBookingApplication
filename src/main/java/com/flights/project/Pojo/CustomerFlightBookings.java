@@ -25,26 +25,28 @@ public class CustomerFlightBookings {
 	
 	@ManyToOne
 	@JoinColumn(name="flightId")
-	private FlightPackages fightPackages;
+	private FlightPackages flightPackages;
     
-	private List<String> seats;
+	private String seat;
 	
-	public CustomerFlightBookings(Customer customer, FlightPackages fightPackages, List<String> seats) {
+	public String getSeat() {
+		return seat;
+	}
+
+	public void setSeat(String seat) {
+		this.seat = seat;
+	}
+
+
+	public CustomerFlightBookings(Customer customer, FlightPackages flightPackages, String seat) {
 		this.customer = customer;
-		this.fightPackages = fightPackages;
-		this.seats = seats;
+		this.flightPackages = flightPackages;
+		this.seat = seat;
 	}
 
-	public List<String> getSeats() {
-		return seats;
-	}
-
-	public void setSeats(List<String> seats) {
-		this.seats = seats;
-	}
-
+	
 	public CustomerFlightBookings() {
-		super();
+
 	}
 
 	public Integer getId() {
@@ -63,12 +65,14 @@ public class CustomerFlightBookings {
 		this.customer = customer;
 	}
 
-	public FlightPackages getFightPackage() {
-		return fightPackages;
+	public FlightPackages getFlightPackages() {
+		return flightPackages;
 	}
 
-	public void setFightPackage(FlightPackages fightPackages) {
-		this.fightPackages = fightPackages;
+	public void setFlightPackages(FlightPackages flightPackages) {
+		this.flightPackages = flightPackages;
 	}
+
+	
 	
 }

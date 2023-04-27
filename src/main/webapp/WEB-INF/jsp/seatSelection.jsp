@@ -28,11 +28,6 @@
         }
     </style>
 </head>
-<script>
-    function showAlert(message) {
-        alert(message);
-    }
-</script>
 <body>
     
     <div>
@@ -44,68 +39,62 @@
             <option value="4">4</option>
         </select>
     </div>
-    <form method="get" name="seatBookings" action="products.htm">
-        <div class="seat">
-            <input type="submit" value="S1" name="userSelectedOption"/>
-        </div>
-    </form>
-    <form method="get" name="seatBookings" action="products.htm">
-        <div class="seat">
-            <input type="submit" value="S2" name="userSelectedOption"/>
-        </div>
-    </form>
-    <form method="get" name="seatBookings" action="products.htm">
-        <div class="seat">
-            <input type="submit" value="S3" name="userSelectedOption"/>
-        </div>
-    </form>
-    <form method="get" name="seatBookings" action="products.htm">
-        <div class="seat">
-            <input type="submit" value="S4" name="userSelectedOption"/>
-        </div>
-    </form>
-    <form method="get" name="seatBookings" action="products.htm">
-        <div class="seat">
-            <input type="submit" value="S5" name="userSelectedOption"/>
-        </div>
-    </form>
-    <form method="get" name="seatBookings" action="products.htm">
-        <div class="seat">
-            <input type="submit" value="S6" name="userSelectedOption"/>
-        </div>
-    </form>
+   < % 
+    List<String> mySessionVar = (String) session.getAttribute("getSeats"); 
+  %>
+    <c:out value = "{$sessionScope.getSeats}"></c:out>
     
-    <p>Selected Seat: <c:out value="${sessionScope.seatsList}"/> <span id="selectedSeat"></span></p>
-    <form method="get" action="products.htm" name="pay">
-        <input type="submit" value="Pay" name="userSelectedOption"/>
+    <form method="get" name="seatBookings" action="products.htm">
+        <div class="seat">
+            <input id ="inputId1" type="submit" value="S1" name="userSelectedOption"/>
+        </div>
     </form>
-    <c:if test="${not empty requestScope.seatSelectedError}">
-            <script>
-                showAlert("${requestScope.seatSelectedError}"); // Call JavaScript function to display the alert
-            </script>
-        </c:if>
-    <!-- <script>
-        // Add your JavaScript logic for seat selection here
-        const seats = document.querySelectorAll('.seat');
+    <form method="get" name="seatBookings" action="products.htm">
+        <div class="seat">
+            <input id ="inputId2" type="submit" value="S2" name="userSelectedOption"/>
+        </div>
+    </form>
+    <form method="get" name="seatBookings" action="products.htm">
+        <div class="seat">
+            <input id ="inputId3" type="submit" value="S3" name="userSelectedOption"/>
+        </div>
+    </form>
+    <form method="get" name="seatBookings" action="products.htm">
+        <div class="seat">
+            <input id ="inputId4" type="submit" value="S4" name="userSelectedOption"/>
+        </div>
+    </form>
+    <form method="get" name="seatBookings" action="products.htm">
+        <div class="seat">
+            <input id ="inputId5" type="submit" value="S5" name="userSelectedOption"/>
+        </div>
+    </form>
+    <form method="get" name="seatBookings" action="products.htm">
+        <div class="seat">
+            <input id ="inputId6" type="submit" value="S6" name="userSelectedOption"/>
+        </div>
+    </form>
+    <script>
+        console.log("Hi");
+    
+        var inputs = document.getElementsByTagName("input");
+    
+        var inputValues = [];
+        for (var i = 0; i < inputs.length; i++) {
+        inputValues.push(inputs[i].value);
+      }
+        console.log(inputValues);
 
-        seats.forEach(seat => {
-            seat.addEventListener('click', () => {
-                if (seat.classList.contains('unavailable')) {
-                    return;
-                }
-                seat.classList.toggle('selected');
-                const selectedSeat = document.getElementById('selectedSeat');
-                selectedSeat.textContent = '';
-                const selectedSeats = document.querySelectorAll('.selected');
-                if (selectedSeats.length > 0) {
-                    selectedSeats.forEach(selected => {
-                        selectedSeat.textContent += selected.textContent + ' ';
-                    });
-                } else {
-                    selectedSeat.textContent = 'None';
-                }
-            });
-        });
-    </script> -->
+        var input1 = document.getElementById("inputId1");
+        var input2 = document.getElementById("inputId2");
+        var input3 = document.getElementById("inputId3");
+        var input4 = document.getElementById("inputId4");
+        var input5 = document.getElementById("inputId5");
+        var input6 = document.getElementById("inputId6");
+        var mySessionVar[] = '<%= session.getAttribute("mySessionVar") %>'
+
+        
+    </script>
+    
 </body>
 </html>

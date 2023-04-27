@@ -55,13 +55,10 @@ public class FlightCustomerController {
 	@GetMapping("/products.htm")
 	public ModelAndView handleLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			@ModelAttribute("flightPackage") FlightPackages flightPackage, BindingResult result) throws CustomerException {
-		
+		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
 		String userSelectedOption = request.getParameter("userSelectedOption");
 		System.out.println(userSelectedOption);
-		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
 		if(userSelectedOption.contains("Add To Cart")) {
-//			cartList = (List<FlightPackages>) session.getAttribute("travelPackagesCart");
-			int cartCount =0;
 			String pid = userSelectedOption.substring(12);
 			Integer tid= Integer.parseInt(pid);		
 			
@@ -72,71 +69,20 @@ public class FlightCustomerController {
 		else if(userSelectedOption.contains("S")) {
 			int seatCount =0;
 			System.out.println(userSelectedOption);
-			FlightPackagesDao fpdao = new FlightPackagesDao();
-			FlightPackages selectedFlight =(FlightPackages) session.getAttribute("flightBooked");
-			Integer selectedFlightId = selectedFlight.getFlightId();
-			List<String> bookedSeats = fpdao.getAllBookedSeats(selectedFlightId);
-			List<String> alreadySelectedSeats = fpdao.getAllBookedSeats(selectedFlightId);
-			request.setAttribute("bookedSeats", bookedSeats);
-			if(bookedSeats!=null) {
-				for(String seat: bookedSeats) {
-					if(userSelectedOption.equals(seat)) {
-						seatCount = 0;
-						request.setAttribute("seatSelectedError", "Seat Already Selected");
-					}else {
-						seatCount +=1;
-					}
-				}
-				if(seatCount==0) {
-					return new ModelAndView("seatSelection");
-				}else {
-					seatsList.add(userSelectedOption);
-					flightPackages = (FlightPackages) session.getAttribute("flightBooked");
-					
-					FlightPackages fp1 = fpdao.getSelectedProduct(flightPackages.getFlightId());
-					fpdao.updateSeatList(flightPackages.getFlightId(), seatsList);
-					fpList = fpdao.getProducts();
-					for(FlightPackages fp : fpList) {
-						System.out.println(fp.getSeats());
-					}
-					CustomerBookingsDao cbdao = new CustomerBookingsDao();
-					cbdao.create(new CustomerFlightBookings(currentUser,fp1, seatsList ));
-					
-					CustomerDao cdao = new CustomerDao();
-					cdao.updateSeatListCustomer(currentUser.getCustomerId(), seatsList);
-					session.setAttribute("seatsList", seatsList);
-					return new ModelAndView("payment");
-				}
-			}else {
-				seatsList.add(userSelectedOption);
-				flightPackages = (FlightPackages) session.getAttribute("flightBooked");
-				
-				FlightPackages fp1 = fpdao.getSelectedProduct(flightPackages.getFlightId());
-				fpdao.updateSeatList(flightPackages.getFlightId(), seatsList);
-				fpList = fpdao.getProducts();
-				for(FlightPackages fp : fpList) {
-					System.out.println(fp.getSeats());
-				}
-				CustomerBookingsDao cbdao = new CustomerBookingsDao();
-				
-				
-				CustomerDao cdao = new CustomerDao();
-				cdao.updateSeatListCustomer(currentUser.getCustomerId(), seatsList);
-				session.setAttribute("seatsList", seatsList);
-				cbdao.create(new CustomerFlightBookings(currentUser,fp1,seatsList ));
-				return new ModelAndView("payment");
+			FlightPackages flightBooked =(FlightPackages) session.getAttribute("flightBooked");
+			String selectedSeat = request.getParameter("userSelectedOption");
+			//maintain the selected seat in customerflightbooking table
+			
+			CustomerBookingsDao cdao = new CustomerBookingsDao();
+			cdao.create(new CustomerFlightBookings(currentUser, flightBooked, selectedSeat));
+			List<CustomerFlightBookings> getSeats = cdao.getAllSeatsByFlightId(flightBooked);
+			for(CustomerFlightBookings i:getSeats) {
+				System.out.println(i.getSeat());
 			}
-			
-			
-		}
-		
-		for(String s : seatsList) {
-			System.out.println("Seats Booked: "+s);
-		}
-		return new ModelAndView("flightDashboard");
+			session.setAttribute("getSeats", getSeats);
 		
 	}
 	
-	
+		return new ModelAndView("flightDashboard");
 
-}
+}}
